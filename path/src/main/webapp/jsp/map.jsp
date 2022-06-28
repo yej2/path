@@ -6,82 +6,111 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>간단한 지도 표시하기</title>
+    <title>main</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=mk81pxl37n"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c1c2c6824adf9d857eb9ea8f41dde8ba"></script>
+	<script src="../js/busstop.js"></script>
+	<script src="../js/busname.js"></script>
 </head>
 <body>
 <div id="map" style="width:100%;height:800px;"></div>
 <script id="data">
-// 경로로 표시할 배열(array)
-// naver.maps.LatLng 위도 경도 변수
-var polylinePath = [
-    new naver.maps.LatLng(37.4526437, 126.49236),
-    new naver.maps.LatLng(37.4768068, 126.4847975),
-    new naver.maps.LatLng(37.4988237, 126.4960839),
-    new naver.maps.LatLng(37.5176422, 126.5392841),
-    new naver.maps.LatLng(37.5398154, 126.5708743),
-    new naver.maps.LatLng(37.5457857, 126.5968815),
-    new naver.maps.LatLng(37.5646413, 126.6502792),
-    new naver.maps.LatLng(37.5708896, 126.7197823),
-    new naver.maps.LatLng(37.5710499, 126.7444216),
-    new naver.maps.LatLng(37.5770001, 126.7733532),
-    new naver.maps.LatLng(37.5817724, 126.799401),
-    new naver.maps.LatLng(37.5841817, 126.8167752),
-    new naver.maps.LatLng(37.5808037, 126.8313027),
-    new naver.maps.LatLng(37.5716637, 126.8473288),
-    new naver.maps.LatLng(37.56136, 126.8619116),
-    new naver.maps.LatLng(37.5487926, 126.8852035),
-    new naver.maps.LatLng(37.540747, 126.8910651),
-    new naver.maps.LatLng(37.5303713, 126.8925982),
-    new naver.maps.LatLng(37.5164746, 126.8825719),
-    new naver.maps.LatLng(37.5002697, 126.8725686),
-    new naver.maps.LatLng(37.4933399, 126.8711786),
-    new naver.maps.LatLng(37.4760577, 126.8756663),
-    new naver.maps.LatLng(37.4634352, 126.8887979),
-    new naver.maps.LatLng(37.448467, 126.8947082),
-    new naver.maps.LatLng(37.4346374, 126.8977132),
-    new naver.maps.LatLng(37.4242394, 126.8949032),
-    new naver.maps.LatLng(37.4033979, 126.8806084),
-    new naver.maps.LatLng(37.3848775, 126.8691937),
-    new naver.maps.LatLng(37.371033, 126.8693097),
-    new naver.maps.LatLng(37.3724101, 126.9126676),
-    new naver.maps.LatLng(37.3830471, 126.9660813),
-    new naver.maps.LatLng(37.3807849, 126.9762181),
-    new naver.maps.LatLng(37.3971504, 127.0267188),
-    new naver.maps.LatLng(37.3961676, 127.0715545),
-    new naver.maps.LatLng(37.3730718, 127.0659032),
-    new naver.maps.LatLng(37.35114, 127.063139),
-    new naver.maps.LatLng(37.3268898, 127.0575003),
-    new naver.maps.LatLng(37.3210994, 127.0517556),
-    new naver.maps.LatLng(37.3084352, 127.0590529),
-    new naver.maps.LatLng(37.2877049, 127.0692822),
-    new naver.maps.LatLng(37.2762087, 127.0808982)
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = { 
+    center: new kakao.maps.LatLng(37.5002697, 126.8725686), // 지도의 중심좌표
+    level: 10 // 지도의 확대 레벨 
+}; 
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+
+
+
+/* var positions = [
+    {lat: 37.51130452596103,lng: 127.04542646710686, },
+    {lat: 37.4772540117351,lng: 127.045480690923}
+]; */
+
+/* var po = ['살루쪼','일공공일안경콘택트 강남포이점']; */
+
+//마커 이미지의 이미지 주소입니다
+var imageSrc = "../resource/busicon.png"; 
+
+for (var i = 0; i < positions.length; i ++) {
+
+// 마커 이미지의 이미지 크기 입니다
+var imageSize = new kakao.maps.Size(10, 10); 
+
+// 마커 이미지를 생성합니다    
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    map: map, // 마커를 표시할 지도
+    position: new kakao.maps.LatLng(positions[i].posY, positions[i].posX), // 마커를 표시할 위치
+    title : po[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+    image : markerImage // 마커 이미지 
+});
+}
+
+//선 그릴 좌표들 5623번 버스
+var linePath1 = [
+    new kakao.maps.LatLng(37.48309943, 126.9015481),
+    new kakao.maps.LatLng(37.474034, 126.89833),
+    new kakao.maps.LatLng(37.470136, 126.898003),
+    new kakao.maps.LatLng(37.46473, 126.897285),    
+    new kakao.maps.LatLng(37.457727, 126.899097),   
+    new kakao.maps.LatLng(37.45292097, 126.9010983),   
+    new kakao.maps.LatLng(37.449067, 126.902663),   
+    new kakao.maps.LatLng(37.440823, 126.903133),    
+    new kakao.maps.LatLng(37.43464329, 126.9027292)
 ];
-</script>
-<script>
 
+//선 그릴 좌표들 3001번 버스
+var linePath2 = [
+	new kakao.maps.LatLng(37.43464329, 126.9027292),	
+    new kakao.maps.LatLng(37.44077927, 126.6784269),    
+    new kakao.maps.LatLng(37.44510362, 126.6790962)
+];
 
-//지도 표시
-var map = new naver.maps.Map('map', {
-    zoom: 5,
-    center: new naver.maps.LatLng(37.3614483, 127.1114883)
+//선 그릴 좌표들 515번 버스
+var linePath3 = [
+	new kakao.maps.LatLng(37.44510362, 126.6790962),
+    new kakao.maps.LatLng(37.44768231, 126.6796119),
+    new kakao.maps.LatLng(37.44931846, 126.6798623),
+    new kakao.maps.LatLng(37.45311525, 126.6800162)
+];
+
+var polyline = new kakao.maps.Polyline({
+    path: linePath1, // 선을 구성하는 좌표배열 입니다
+    strokeWeight: 5, // 선의 두께 입니다
+    strokeColor: '#00A50B', // 선의 색깔입니다
+    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid' // 선의 스타일입니다
 });
 
-//위의 배열을 이용해 라인 그리기
-var polyline = new naver.maps.Polyline({
-    path: polylinePath,      //선 위치 변수배열
-    strokeColor: '#FF0000', //선 색 빨강 #빨강,초록,파랑
-    strokeOpacity: 0.8, //선 투명도 0 ~ 1
-    strokeWeight: 6,   //선 두께
-    map: map           //오버레이할 지도
+var polyline2 = new kakao.maps.Polyline({
+    path: linePath2, // 선을 구성하는 좌표배열 입니다
+    strokeWeight: 5, // 선의 두께 입니다
+    strokeColor: '#103EF3', // 선의 색깔입니다
+    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid' // 선의 스타일입니다
 });
 
-// 배열 마지막 위치를 마크로 표시함
-var marker = new naver.maps.Marker({
-    position: polylinePath[polylinePath.length-1], //마크 표시할 위치 배열의 마지막 위치
-    map: map
+var polyline3 = new kakao.maps.Polyline({
+    path: linePath3, // 선을 구성하는 좌표배열 입니다
+    strokeWeight: 5, // 선의 두께 입니다
+    strokeColor: '#F31010', // 선의 색깔입니다
+    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid' // 선의 스타일입니다
 });
+
+// 지도에 선을 표시합니다 
+polyline.setMap(map);
+polyline2.setMap(map);
+polyline3.setMap(map);
+
 
 </script>
 </body>
