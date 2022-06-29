@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/first.css">
 <title>Insert title here</title>
 </head>
 <body>
-<div class="div">저의 집을 찾으로 가볼까요??(-‿◦☀)</div>
+<div class="div">나의 집으로 어떻게 가야할까요?</div>
 
-<button class="btn">👉클릭</button>
+<button class="btn" onclick="location.href='map.jsp'">👉클릭</button>
 </body>
 </html>
