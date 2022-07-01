@@ -22,7 +22,7 @@
         <div class="option">
             <div class="gokakao">
                 <form onsubmit="return doSomething();" class="my-form">
-	    			키워드 : <input type="text" value="진솔INS" name="name" size="15">
+	    			키워드 : <input type="text" value="진솔ins" name="name" size="15">
 	   				<input type="submit" value="검색">
 				</form>
             </div>
@@ -41,11 +41,39 @@
         <div>집까지 가는 방법</div>
         <div>
         	<div class="bus1">5623번 버스</div>
-        	<div class="bus2">(구로디지털단지역 승차 -- 석수역 하차)</div>
+        	<div class="bus2">
+	        	<details>
+	        		<summary>(구로디지털단지역 승차 -- 석수역 하차)</summary>
+	        		구로디지털단지역</br>
+	        		문성초등학교</br>
+	        		금천우체국</br>
+	        		말미고개금천소방서</br>
+	        		금천구청.금천경찰서</br>
+	        		시흥사거리</br>
+	        		박미삼거리.국립전통예술중고</br>
+	        		시흥유통센터</br>
+	        		석수역
+	        	</details>
+        	</div>
         	<div class="bus1">3001번 버스</div>
-        	<div class="bus2">(석수역 승차 -- 쌍용아파트 하차)</div>
+        	<div class="bus2">
+	        	<details>
+	        		<summary>(석수역 승차 -- 쌍용아파트 하차)</summary>
+	        		석수역</br>
+	        		신동아3차아파트</br>
+	        		쌍용아파트
+	        	</details>
+        	</div>
         	<div class="bus1">515번 버스</div>
-        	<div class="an">(쌍용아파트 승차 -- 재흥시장 하차)</div>
+        	<div class="an">
+	        	<details>
+	        		<summary>(쌍용아파트 승차 -- 재흥시장 하차)</summary>
+	        		쌍용아파트</br>
+	        		신기.남부종합시장(진흥사거리)</br>
+	        		로얄아파트</br>
+	        		재흥시장
+	        	</details>
+        	</div>
         </div>
         <hr class="hr2">
         <div>가장 가까운 정류장으로 이동합니다.</div>
@@ -53,11 +81,14 @@
         	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go1()">디지털산업1단지</button></div>
         	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go2()">JNK디지털타워</button></div>
         	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go3()">한국산업기술시험원.디지털탑프라자</button></div>
+        	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go4()">구로디지털단지우체국</button></div>
+        	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go5()">한국산업단지공단.이마트구로점</button></div>
         </div>
         <hr class="hr2">
         <div>카카오맵으로 길을 찾을 수 있습니다.</div>
-        <a href="https://map.kakao.com/link/to/18577297" style="color:blue" target="_blank">카카오맵으로 길찾기</a>
-        <div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go1()">디지털산업1단지</button></div>
+        <div class="gocloser">
+        	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="window.open('https://map.kakao.com/link/to/18577297')">길찾기</button></div>
+    	</div>
     </div>
 </div>
 <script id="data">
@@ -298,6 +329,16 @@ function go2() {
 	map.setLevel(1);
 };
 function go3() {             
+	var moveLatLon = new kakao.maps.LatLng(37.48161251, 126.8973623);
+	map.setCenter(moveLatLon);
+	map.setLevel(1);
+};
+function go4() {             
+	var moveLatLon = new kakao.maps.LatLng(37.48408103, 126.8966246);
+	map.setCenter(moveLatLon);
+	map.setLevel(1);
+};
+function go5() {             
 	var moveLatLon = new kakao.maps.LatLng(37.48161251, 126.8973623);
 	map.setCenter(moveLatLon);
 	map.setLevel(1);

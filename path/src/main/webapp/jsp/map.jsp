@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>test</title>
+    <title>main페이지</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=mk81pxl37n"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c1c2c6824adf9d857eb9ea8f41dde8ba"></script>
@@ -21,7 +21,10 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div class="gokakao">
-                <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">카카오맵으로 길찾기</a>
+                <form onsubmit="return doSomething();" class="my-form">
+	    			키워드 : <input type="text" value="진솔ins" name="name" size="15">
+	   				<input type="submit" value="검색">
+				</form>
             </div>
         </div>
         <hr class="hr1">
@@ -38,11 +41,39 @@
         <div>집까지 가는 방법</div>
         <div>
         	<div class="bus1">5623번 버스</div>
-        	<div class="bus2">(구로디지털단지역 승차 -- 석수역 하차)</div>
+        	<div class="bus2">
+	        	<details>
+	        		<summary>(구로디지털단지역 승차 -- 석수역 하차)</summary>
+	        		구로디지털단지역</br>
+	        		문성초등학교</br>
+	        		금천우체국</br>
+	        		말미고개금천소방서</br>
+	        		금천구청.금천경찰서</br>
+	        		시흥사거리</br>
+	        		박미삼거리.국립전통예술중고</br>
+	        		시흥유통센터</br>
+	        		석수역
+	        	</details>
+        	</div>
         	<div class="bus1">3001번 버스</div>
-        	<div class="bus2">(석수역 승차 -- 쌍용아파트 하차)</div>
+        	<div class="bus2">
+	        	<details>
+	        		<summary>(석수역 승차 -- 쌍용아파트 하차)</summary>
+	        		석수역</br>
+	        		신동아3차아파트</br>
+	        		쌍용아파트
+	        	</details>
+        	</div>
         	<div class="bus1">515번 버스</div>
-        	<div class="an">(쌍용아파트 승차 -- 재흥시장 하차)</div>
+        	<div class="an">
+	        	<details>
+	        		<summary>(쌍용아파트 승차 -- 재흥시장 하차)</summary>
+	        		쌍용아파트</br>
+	        		신기.남부종합시장(진흥사거리)</br>
+	        		로얄아파트</br>
+	        		재흥시장
+	        	</details>
+        	</div>
         </div>
         <hr class="hr2">
         <div>가장 가까운 정류장으로 이동합니다.</div>
@@ -50,7 +81,14 @@
         	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go1()">디지털산업1단지</button></div>
         	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go2()">JNK디지털타워</button></div>
         	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go3()">한국산업기술시험원.디지털탑프라자</button></div>
+        	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go4()">구로디지털단지우체국</button></div>
+        	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="go5()">한국산업단지공단.이마트구로점</button></div>
         </div>
+        <hr class="hr2">
+        <div>카카오맵으로 길을 찾을 수 있습니다.</div>
+        <div class="gocloser">
+        	<div class="pa5"><button class="w-btn-outline w-btn-blue-outline" onclick="window.open('https://map.kakao.com/link/to/18577297')">길찾기</button></div>
+    	</div>
     </div>
 </div>
 <script id="data">
@@ -87,20 +125,21 @@ var markers=[];
 var imageSrc = "../resource/busicon.png"; 
 
 for (var i = 0; i < positions.length; i ++) {
-	// 마커 이미지의 이미지 크기 입니다
+	// 마커 이미지의 이미지 크기
 	var imageSize = new kakao.maps.Size(10, 10); 
-	// 마커 이미지를 생성합니다    
+	// 마커 이미지를 생성   
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 	
-	// 마커를 생성합니다
+	// 마커를 생성
 	var marker = new kakao.maps.Marker({
 	    map: map, // 마커를 표시할 지도
-	    position: new kakao.maps.LatLng(positions[i].posY, positions[i].posX), // 마커를 표시할 위치
-	    title : po[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-	    image : markerImage // 마커 이미지 
+	    position: new kakao.maps.LatLng(positions[i].posY, positions[i].posX),
+	    title : po[i],
+	    image : markerImage 
 	});
 	
 	markers.push(marker);
 }
+
 // 처음에는 버스정류장 안보이게!
 for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
@@ -108,11 +147,11 @@ for (var i = 0; i < markers.length; i++) {
 
 var zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
 // 지도가 확대 또는 축소되면 이벤트 등록!
 kakao.maps.event.addListener(map, 'zoom_changed', function() {          
-    // 지도의 현재 레벨을 얻어옵니다
     var level = map.getLevel();
-    console.log("현재 zoom level : " + level)
+    console.log("현재 zoom level : " + level)  // 지도의 현재 레벨
     
     if (level <= 6) {
         for (var i = 0; i < markers.length; i++) {
@@ -235,46 +274,39 @@ var customOverlay = new kakao.maps.CustomOverlay({
 customOverlay.setMap(map);
 
 
-//지도에 추가된 지도타입정보를 가지고 있을 변수입니다
+//지도에 추가된 지도타입정보를 가지고 있을 변수
 var currentTypeId;
 
-// 버튼이 클릭되면 호출되는 함수입니다
+// 버튼이 클릭되면 호출되는 함수
 function setOverlayMapTypeId(maptype) {
     var changeMaptype;
-    
-    // maptype에 따라 지도에 추가할 지도타입을 결정합니다
+
     if (maptype === 'traffic') {            
-        
         // 교통정보 지도타입
         changeMaptype = kakao.maps.MapTypeId.TRAFFIC;     
         
-    } else if (maptype === 'roadview') {        
-        
+    } else if (maptype === 'roadview') { 
         // 로드뷰 도로정보 지도타입
         changeMaptype = kakao.maps.MapTypeId.ROADVIEW;    
 
     } else if (maptype === 'bicycle') {
-        
         // 자전거 도로 지도타입
         changeMaptype = kakao.maps.MapTypeId.BICYCLE;    
 
     } else if (maptype === 'true') {
-        
         // 원래대로 지도타입
     	map.removeOverlayMapTypeId('traffic');
     	map.removeOverlayMapTypeId('roadview');    
     	map.removeOverlayMapTypeId('bicycle');    
     }
     
-    // 이미 등록된 지도 타입이 있으면 제거합니다
+    // 이미 등록된 지도 타입이 있으면 제거
     if (currentTypeId) {
         map.removeOverlayMapTypeId(currentTypeId);    
     }
-    
-    // maptype에 해당하는 지도타입을 지도에 추가합니다
+    // maptype에 해당하는 지도타입을 지도에 추가
     map.addOverlayMapTypeId(changeMaptype);
-    
-    // 지도에 추가된 타입정보를 갱신합니다
+    // 지도에 추가된 타입정보를 갱신
     currentTypeId = changeMaptype;        
 }
 
@@ -289,13 +321,44 @@ function go2() {
 	var moveLatLon = new kakao.maps.LatLng(37.48218333, 126.8973976);
 	map.setCenter(moveLatLon);
 	map.setLevel(1);
-}
+};
 function go3() {             
 	var moveLatLon = new kakao.maps.LatLng(37.48161251, 126.8973623);
 	map.setCenter(moveLatLon);
 	map.setLevel(1);
-}
+};
+function go4() {             
+	var moveLatLon = new kakao.maps.LatLng(37.48408103, 126.8966246);
+	map.setCenter(moveLatLon);
+	map.setLevel(1);
+};
+function go5() {             
+	var moveLatLon = new kakao.maps.LatLng(37.48161251, 126.8973623);
+	map.setCenter(moveLatLon);
+	map.setLevel(1);
+};
 
+//검색 후 카카오맵에 바로 검색될 수 있도록
+// 공백이나 잘못된 숫자 구현 못함
+/* function searchPlaces() {
+
+    var keyword = document.getElementById('keyword').value;
+
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        alert('키워드를 입력해주세요!');
+        return false;
+    }
+    console.log(keyword);
+    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+    ps.keywordSearch( keyword, placesSearchCB);
+    console.log("콜백");    
+} */
+
+function doSomething() {
+    var url = document.forms[0].elements['name'].value;
+    window.location = "https://map.kakao.com/link/search/" + url 
+    return false;
+}
 
 </script>
 </body>

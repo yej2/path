@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/first.css">
-<title>Insert title here</title>
+<title>first페이지</title>
 </head>
 <body>
 <div class="div">나의 집으로 어떻게 가야할까요?</div>
